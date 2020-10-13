@@ -38,7 +38,7 @@ seed_everything(seed)
 
 #Model parameters
 batch_size = 8
-size = 380
+size = 224
 chinnels=3
 num_classes = 2
 warmup_epochs=5
@@ -434,9 +434,9 @@ def build_model():
     model = Sequential()
     model.add(effnet)
     model.add(GlobalAveragePooling2D())
-    model.add(Dense(1024, activation='relu'))
+    model.add(Dense(256, activation='relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(2, activation='softmax'))
+    model.add(Dense(1, activation='sigmoid'))
     print(model.summary())
     return model
 
