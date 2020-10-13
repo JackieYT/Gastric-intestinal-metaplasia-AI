@@ -31,7 +31,7 @@ seed = 2020
 seed_everything(seed)
 
 #Model parameters
-batch_size = 32
+batch_size = 8
 size = 224
 chinnels=3
 num_classes = 2
@@ -102,8 +102,8 @@ test_generator = test_datagen.flow_from_directory(
 
 
 
-# build modal and load in EfficientNetB0
-effnet = efn.EfficientNetB0(weights='imagenet',
+# build modal and load in EfficientNetB4
+effnet = efn.EfficientNetB4(weights='imagenet',
                         include_top=False,
                         input_shape=(size, size, chinnels))
 def build_model():
@@ -111,9 +111,9 @@ def build_model():
     model = Sequential()
     model.add(effnet)
     model.add(GlobalAveragePooling2D())
-    model.add(Dense(1024, activation='relu'))
+    model.add(Dense(256, activation='relu'))
     model.add(Dropout(0.5))
-    model.add(Dense(2, activation='softmax'))
+    model.add(Dense(1, activation='sigmoid'))
     print(model.summary())
     return model
 model = build_model()        
